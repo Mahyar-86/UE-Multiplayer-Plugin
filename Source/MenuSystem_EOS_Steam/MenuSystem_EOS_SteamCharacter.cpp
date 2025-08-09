@@ -10,6 +10,7 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
+#include "Online/OnlineSessionNames.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -149,7 +150,7 @@ void AMenuSystem_EOS_SteamCharacter::CreateSession() const
 	if (OnlineSessionInterface.Pin()->GetNamedSession(NAME_GameSession))
 	{
 		OnlineSessionInterface.Pin()->DestroySession(NAME_GameSession);
-		GEngine->AddOnScreenDebugMessage(-1, 10, FColor::Black,TEXT("Session Destroyed!"));
+		GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Black,TEXT("Session Destroyed!"));
 	}
 
 	OnlineSessionInterface.Pin()->AddOnCreateSessionCompleteDelegate_Handle(OnCreateSessionCompleteDelegate);
@@ -162,21 +163,51 @@ void AMenuSystem_EOS_SteamCharacter::CreateSession() const
 	SessionSettings->bShouldAdvertise = true;
 	SessionSettings->bUsesPresence = true;
 	SessionSettings->bUseLobbiesIfAvailable = true;
-
-	const ULocalPlayer* LocalPlayer = GetWorld()->GetFirstLocalPlayerFromController();
 	
-	OnlineSessionInterface.Pin()->CreateSession(*LocalPlayer->GetPreferredUniqueNetId(), NAME_GameSession, *SessionSettings);
+	OnlineSessionInterface.Pin()->CreateSession(*GetLocalPlayer()->GetPreferredUniqueNetId(), NAME_GameSession, *SessionSettings);
 }
 
-void AMenuSystem_EOS_SteamCharacter::OnCreateSessionComplete(const FName SessionName, const bool bWasSuccessful)
+void AMenuSystem_EOS_SteamCharacter::OnCreateSessionComplete(const FName SessionName, const bool bWasSuccessful) const
 {
-	if (bWasSuccessful)
+	if (!bWasSuccessful)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 10, FColor::Black, FString::Printf(TEXT("Session %s Created Successfuly!"), *SessionName.ToString()));
+		GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Black,TEXT("Failed to Create the Session!"));
+		return;
 	}
-	else
-	{
-		GEngine->AddOnScreenDebugMessage(-1, 10, FColor::Black,TEXT("Failed to Create the Session!"));
-	}
+
+	GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Black, FString::Printf(TEXT("Session %s Created Successfuly!"), *SessionName.ToString()));
 }
 
+void AMenuSystem_EOS_SteamCharacter::JoinSession() const
+{
+	if (!OnlineSessionInterface.IsValid())
+	{
+		return;
+	}
+
+	OnlineSessionInterface.Pin()->AddOnFindSessionsCompleteDelegate_Handle(OnFindSessionsCompleteDelegate);
+	
+	SessionSearch->MaxSearchResults = 10000;
+	SessionSearch->bIsLanQuery = false;
+
+	// this setting force players to have equals regions (in the steam settings)
+	SessionSearch->QuerySettings.Set(SEARCH_LOBBIES, true, EOnlineComparisonOp::Equals);
+
+	OnlineSessionInterface.Pin()->FindSessions(*GetLocalPlayer()->GetPreferredUniqueNetId(), SessionSearch.ToSharedRef());
+}
+
+void AMenuSystem_EOS_SteamCharacter::OnFindSessionsComplete(bool bWasSuccessful) const
+{
+	if (!bWasSuccessful)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Black,TEXT("Failed to Find a Session!"));
+	}
+
+	for (FOnlineSessionSearchResult SearchResult : SessionSearch->SearchResults)
+	{
+		FString SessionID = SearchResult.GetSessionIdStr();
+		FString UserName = SearchResult.Session.OwningUserName;
+
+		GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Black, FString::Printf(TEXT("Session Found! SessionID: %s - UserName: %s"), *SessionID, *UserName));
+	}
+}

@@ -84,13 +84,20 @@ protected:
 	UFUNCTION(BlueprintCallable)
 	void CreateSession() const;
 
-	void OnCreateSessionComplete(FName SessionName, bool bWasSuccessful);
+	void OnCreateSessionComplete(FName SessionName, bool bWasSuccessful) const;
 	
+	UFUNCTION(BlueprintCallable)
+	void JoinSession() const;
 
+	void OnFindSessionsComplete(bool bWasSuccessful) const;
 
 private:
 	FOnCreateSessionCompleteDelegate OnCreateSessionCompleteDelegate;
 
+	FOnFindSessionsCompleteDelegate OnFindSessionsCompleteDelegate;
 
+	ULocalPlayer* GetLocalPlayer() const { return GetWorld() ? GetWorld()->GetFirstLocalPlayerFromController() : nullptr; }
+
+	const TSharedPtr<FOnlineSessionSearch> SessionSearch = MakeShareable(new FOnlineSessionSearch());
 };
 
