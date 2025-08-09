@@ -82,11 +82,15 @@ public:
 
 protected:
 	UFUNCTION(BlueprintCallable)
-	void CreateSession();
+	void CreateSession() const;
 
 	void OnCreateSessionComplete(FName SessionName, bool bWasSuccessful);
+	
+
 
 private:
 	FOnCreateSessionCompleteDelegate OnCreateSessionCompleteDelegate;
+
+
 };
 

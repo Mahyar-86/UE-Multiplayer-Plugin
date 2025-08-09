@@ -17,7 +17,8 @@ DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 // AMenuSystem_EOS_SteamCharacter
 
 AMenuSystem_EOS_SteamCharacter::AMenuSystem_EOS_SteamCharacter():
-	OnCreateSessionCompleteDelegate(FOnCreateSessionCompleteDelegate::CreateUObject(this, &AMenuSystem_EOS_SteamCharacter::OnCreateSessionComplete))
+	OnCreateSessionCompleteDelegate(FOnCreateSessionCompleteDelegate::CreateUObject(this, &AMenuSystem_EOS_SteamCharacter::OnCreateSessionComplete)),
+	OnFindSessionsCompleteDelegate(FOnFindSessionsCompleteDelegate::CreateUObject(this, &AMenuSystem_EOS_SteamCharacter::OnFindSessionsComplete))
 {
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
@@ -138,7 +139,7 @@ void AMenuSystem_EOS_SteamCharacter::Look(const FInputActionValue& Value)
 	}
 }
 
-void AMenuSystem_EOS_SteamCharacter::CreateSession()
+void AMenuSystem_EOS_SteamCharacter::CreateSession() const
 {
 	if (!OnlineSessionInterface.IsValid())
 	{
@@ -148,17 +149,34 @@ void AMenuSystem_EOS_SteamCharacter::CreateSession()
 	if (OnlineSessionInterface.Pin()->GetNamedSession(NAME_GameSession))
 	{
 		OnlineSessionInterface.Pin()->DestroySession(NAME_GameSession);
+		GEngine->AddOnScreenDebugMessage(-1, 10, FColor::Black,TEXT("Session Destroyed!"));
 	}
 
 	OnlineSessionInterface.Pin()->AddOnCreateSessionCompleteDelegate_Handle(OnCreateSessionCompleteDelegate);
 
-	TSharedPtr<FOnlineSessionSettings> SessionSettings = MakeShareable(new FOnlineSessionSettings());
+	const TSharedPtr<FOnlineSessionSettings> SessionSettings = MakeShareable(new FOnlineSessionSettings());
+	SessionSettings->bIsLANMatch = false;
+	SessionSettings->NumPublicConnections = 4;
+	SessionSettings->bAllowJoinInProgress = true;
+	SessionSettings->bAllowJoinViaPresence = true;
+	SessionSettings->bShouldAdvertise = true;
+	SessionSettings->bUsesPresence = true;
+	SessionSettings->bUseLobbiesIfAvailable = true;
+
 	const ULocalPlayer* LocalPlayer = GetWorld()->GetFirstLocalPlayerFromController();
 	
 	OnlineSessionInterface.Pin()->CreateSession(*LocalPlayer->GetPreferredUniqueNetId(), NAME_GameSession, *SessionSettings);
 }
 
-void AMenuSystem_EOS_SteamCharacter::OnCreateSessionComplete(FName SessionName, bool bWasSuccessful)
+void AMenuSystem_EOS_SteamCharacter::OnCreateSessionComplete(const FName SessionName, const bool bWasSuccessful)
 {
-	
+	if (bWasSuccessful)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 10, FColor::Black, FString::Printf(TEXT("Session %s Created Successfuly!"), *SessionName.ToString()));
+	}
+	else
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 10, FColor::Black,TEXT("Failed to Create the Session!"));
+	}
 }
+
