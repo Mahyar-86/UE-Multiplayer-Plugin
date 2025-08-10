@@ -1,5 +1,9 @@
 /DerivedDataCache
+/.git
+/.idea
 /.vscode
 /Saved
 /Content
 /Intermediate
+/Plugins/MultiPlayerHandler/Content
+/Plugins/MultiPlayerHandler/Intermediate
