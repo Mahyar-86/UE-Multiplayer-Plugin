@@ -91,6 +91,8 @@ protected:
 
 	void OnFindSessionsComplete(bool bWasSuccessful) const;
 
+	void OnJoinSessionComplete(FName SessionName, EOnJoinSessionCompleteResult::Type Result) const;
+
 private:
 	FOnCreateSessionCompleteDelegate OnCreateSessionCompleteDelegate;
 
@@ -99,5 +101,7 @@ private:
 	ULocalPlayer* GetLocalPlayer() const { return GetWorld() ? GetWorld()->GetFirstLocalPlayerFromController() : nullptr; }
 
 	const TSharedPtr<FOnlineSessionSearch> SessionSearch = MakeShareable(new FOnlineSessionSearch());
+
+	FOnJoinSessionCompleteDelegate OnJoinSessionCompleteDelegate;
 };
 

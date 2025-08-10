@@ -19,7 +19,8 @@ DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
 AMenuSystem_EOS_SteamCharacter::AMenuSystem_EOS_SteamCharacter():
 	OnCreateSessionCompleteDelegate(FOnCreateSessionCompleteDelegate::CreateUObject(this, &AMenuSystem_EOS_SteamCharacter::OnCreateSessionComplete)),
-	OnFindSessionsCompleteDelegate(FOnFindSessionsCompleteDelegate::CreateUObject(this, &AMenuSystem_EOS_SteamCharacter::OnFindSessionsComplete))
+	OnFindSessionsCompleteDelegate(FOnFindSessionsCompleteDelegate::CreateUObject(this, &AMenuSystem_EOS_SteamCharacter::OnFindSessionsComplete)),
+	OnJoinSessionCompleteDelegate(FOnJoinSessionCompleteDelegate::CreateUObject(this, &AMenuSystem_EOS_SteamCharacter::OnJoinSessionComplete))
 {
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
@@ -163,6 +164,7 @@ void AMenuSystem_EOS_SteamCharacter::CreateSession() const
 	SessionSettings->bShouldAdvertise = true;
 	SessionSettings->bUsesPresence = true;
 	SessionSettings->bUseLobbiesIfAvailable = true;
+	SessionSettings->Set(FName("MatchType"), FString("FreeForAll"), EOnlineDataAdvertisementType::ViaOnlineServiceAndPing);
 	
 	OnlineSessionInterface.Pin()->CreateSession(*GetLocalPlayer()->GetPreferredUniqueNetId(), NAME_GameSession, *SessionSettings);
 }
@@ -176,6 +178,11 @@ void AMenuSystem_EOS_SteamCharacter::OnCreateSessionComplete(const FName Session
 	}
 
 	GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Black, FString::Printf(TEXT("Session %s Created Successfuly!"), *SessionName.ToString()));
+
+	if (UWorld* World = GetWorld())
+	{
+		World->ServerTravel(FString("/Game/ThirdPerson/Maps/Lobby?listen"));
+	}
 }
 
 void AMenuSystem_EOS_SteamCharacter::JoinSession() const
@@ -201,13 +208,46 @@ void AMenuSystem_EOS_SteamCharacter::OnFindSessionsComplete(bool bWasSuccessful)
 	if (!bWasSuccessful)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Black,TEXT("Failed to Find a Session!"));
+		return;
+	}
+
+	if (!OnlineSessionInterface.IsValid())
+	{
+		return;
 	}
 
 	for (FOnlineSessionSearchResult SearchResult : SessionSearch->SearchResults)
 	{
 		FString SessionID = SearchResult.GetSessionIdStr();
 		FString UserName = SearchResult.Session.OwningUserName;
+		FString MatchType;
+		SearchResult.Session.SessionSettings.Get(FName("MatchType"), MatchType);
 
 		GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Black, FString::Printf(TEXT("Session Found! SessionID: %s - UserName: %s"), *SessionID, *UserName));
+
+		if (MatchType == FString("FreeForAll"))
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Black, FString::Printf(TEXT("Joining Match Type: %s"), *MatchType));
+			OnlineSessionInterface.Pin()->AddOnJoinSessionCompleteDelegate_Handle(OnJoinSessionCompleteDelegate);
+			OnlineSessionInterface.Pin()->JoinSession(*GetLocalPlayer()->GetPreferredUniqueNetId(), NAME_GameSession, SearchResult);
+		}
+	}
+}
+
+void AMenuSystem_EOS_SteamCharacter::OnJoinSessionComplete(FName SessionName, EOnJoinSessionCompleteResult::Type Result) const
+{
+	if (!OnlineSessionInterface.IsValid())
+	{
+		return;
+	}
+
+	if (FString ConnectInfo; OnlineSessionInterface.Pin()->GetResolvedConnectString(NAME_GameSession, ConnectInfo))
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Black, FString::Printf(TEXT("Joined to Address: %s"), *ConnectInfo));
+
+		if (APlayerController* LocalPlayerController = GetGameInstance()->GetFirstLocalPlayerController())
+		{
+			LocalPlayerController->ClientTravel(ConnectInfo, TRAVEL_Absolute);
+		}
 	}
 }
