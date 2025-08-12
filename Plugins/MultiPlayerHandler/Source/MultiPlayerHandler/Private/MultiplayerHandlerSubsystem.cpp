@@ -10,8 +10,6 @@ UMultiplayerHandlerSubsystem::UMultiplayerHandlerSubsystem()
 	if (const IOnlineSubsystem* OnlineSubsystem = Online::GetSubsystem(UObject::GetWorld()))
 	{
 		OnlineSessionInterface = OnlineSubsystem->GetSessionInterface();
-		
-		GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Black, FString::Printf(TEXT("Found subsystem %s"), *OnlineSubsystem->GetSubsystemName().ToString()));
 	}
 
 	OnCreateSessionCompleteDelegate.BindUObject(this, &UMultiplayerHandlerSubsystem::OnCreateSessionComplete);
