@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "OnlineSessionSettings.h"
 #include "Interfaces/OnlineSessionInterface.h"
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "MultiplayerHandlerSubsystem.generated.h"
@@ -33,7 +34,8 @@ protected:
 
 private:
 	TWeakPtr<IOnlineSession> OnlineSessionInterface;
-
+	TSharedPtr<FOnlineSessionSettings> LastSessionSettings;
+	
 	FOnCreateSessionCompleteDelegate OnCreateSessionCompleteDelegate;
 	FOnFindSessionsCompleteDelegate OnFindSessionsCompleteDelegate;
 	FOnJoinSessionCompleteDelegate OnJoinSessionCompleteDelegate;
@@ -45,4 +47,6 @@ private:
 	FDelegateHandle OnJoinSessionCompleteDelegateHandle;
 	FDelegateHandle OnDestroySessionCompleteDelegateHandle;
 	FDelegateHandle OnStartSessionCompleteDelegateHandle;
+
+	ULocalPlayer* GetLocalPlayer() const { return GetWorld() ? GetWorld()->GetFirstLocalPlayerFromController() : nullptr; }
 };

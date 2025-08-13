@@ -6,6 +6,7 @@
 #include "Blueprint/UserWidget.h"
 #include "MultiplayerHandlerMenuWidget.generated.h"
 
+class UMultiplayerHandlerSubsystem;
 class UButton;
 /**
  * 
@@ -17,7 +18,31 @@ class MULTIPLAYERHANDLER_API UMultiplayerHandlerMenuWidget : public UUserWidget
 
 public:
 	UFUNCTION(BlueprintCallable)
-	void Setup();
+	void SetupMenu(int32 NumberOfPublicConnections = 4, FString TypeOfMatch = "FreeForAll");
 
+protected:
+	virtual bool Initialize() override;
+	virtual void NativeDestruct() override;
 
+private:
+	UFUNCTION()
+	void RemoveMenu();
+	
+	UPROPERTY(meta=(BindWidget))
+	UButton* Button_Host;
+
+	UPROPERTY(meta=(BindWidget))
+	UButton* Button_Join;
+
+	UFUNCTION()
+	void HostButtonClicked();
+
+	UFUNCTION()
+	void JoinButtonClicked();
+
+	UPROPERTY()
+	UMultiplayerHandlerSubsystem* MultiplayerHandlerSubsystem;
+
+	int32 NumPublicConnections;
+	FString MatchType;
 };
