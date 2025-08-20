@@ -5,8 +5,9 @@
 
 #include "MultiplayerHandlerSubsystem.h"
 #include "Components/Button.h"
+#include "OnlineSubsystemUtils.h"
 
-void UMultiplayerHandlerMenuWidget::SetupMenu(int32 NumberOfPublicConnections, FString TypeOfMatch)
+void UMultiplayerHandlerMenuWidget::SetupMenu(const int32 NumberOfPublicConnections, FString TypeOfMatch)
 {
 	NumPublicConnections = NumberOfPublicConnections;
 	MatchType = TypeOfMatch;
@@ -27,6 +28,15 @@ void UMultiplayerHandlerMenuWidget::SetupMenu(int32 NumberOfPublicConnections, F
 	if (const UGameInstance* GameInstance = GetGameInstance())
 	{
 		MultiplayerHandlerSubsystem = GameInstance->GetSubsystem<UMultiplayerHandlerSubsystem>();
+	}
+
+	if (MultiplayerHandlerSubsystem)
+	{
+		MultiplayerHandlerSubsystem->MultiplayerHandlerOnCreateSessionCompleteDelegate.AddDynamic(this, &UMultiplayerHandlerMenuWidget::OnCreateSession);
+		MultiplayerHandlerSubsystem->MultiplayerHandlerOnFindSessionCompleteDelegate.AddUObject(this, &UMultiplayerHandlerMenuWidget::OnFindSession);
+		MultiplayerHandlerSubsystem->MultiplayerHandlerOnJoinSessionCompleteDelegate.AddUObject(this, &UMultiplayerHandlerMenuWidget::OnJoinSession);
+		MultiplayerHandlerSubsystem->MultiplayerHandlerOnDestroySessionCompleteDelegate.AddDynamic(this, &UMultiplayerHandlerMenuWidget::OnDestroySession);
+		MultiplayerHandlerSubsystem->MultiplayerHandlerOnStartSessionCompleteDelegate.AddDynamic(this, &UMultiplayerHandlerMenuWidget::OnStartSession);
 	}
 }
 
@@ -70,17 +80,81 @@ void UMultiplayerHandlerMenuWidget::RemoveMenu()
 
 void UMultiplayerHandlerMenuWidget::HostButtonClicked()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Black, TEXT("Host Button Clicked!"));
-
-	if (MultiplayerHandlerSubsystem)
+	if (!MultiplayerHandlerSubsystem)
 	{
-		MultiplayerHandlerSubsystem->CreateSession(NumPublicConnections, MatchType);
-
-		GetWorld()->ServerTravel("/Game/ThirdPerson/Maps/Lobby?listen");
+		return;
 	}
+
+	MultiplayerHandlerSubsystem->CreateSession(NumPublicConnections, MatchType);
 }
 
 void UMultiplayerHandlerMenuWidget::JoinButtonClicked()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Black, TEXT("Join Button Clicked!"));
+	if (!MultiplayerHandlerSubsystem)
+	{
+		return;
+	}
+
+	MultiplayerHandlerSubsystem->FindSession(10000); // Cause many players using 480 dev steam id
+}
+
+
+void UMultiplayerHandlerMenuWidget::OnCreateSession(const bool bWasSuccessful)
+{
+	if (bWasSuccessful)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Black, TEXT("Session Created Successfully!"));
+		GetWorld()->ServerTravel("/Game/ThirdPerson/Maps/Lobby?listen");
+	}
+	else
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Black, TEXT("Failed to Create the Session!"));
+	}
+}
+
+void UMultiplayerHandlerMenuWidget::OnFindSession(const TArray<FOnlineSessionSearchResult>& SessionResults, bool bWasSuccessful) const
+{
+	if (!MultiplayerHandlerSubsystem)
+	{
+		return;
+	}
+
+	for (FOnlineSessionSearchResult SearchResult: SessionResults)
+	{
+		FString SessionMatchType;
+		SearchResult.Session.SessionSettings.Get(FName("MatchType"), SessionMatchType);
+
+		if (SessionMatchType == MatchType)
+		{
+			MultiplayerHandlerSubsystem->JoinSession(SearchResult);
+			return;
+		}
+	}
+}
+
+void UMultiplayerHandlerMenuWidget::OnJoinSession(EOnJoinSessionCompleteResult::Type Result) const
+{
+	if (const IOnlineSubsystem* OnlineSubsystem = Online::GetSubsystem(UObject::GetWorld()))
+	{
+		if (const TWeakPtr<IOnlineSession> OnlineSessionInterface = OnlineSubsystem->GetSessionInterface(); OnlineSessionInterface.IsValid())
+		{
+			FString Address;
+			OnlineSessionInterface.Pin()->GetResolvedConnectString(NAME_GameSession, Address);
+			
+			if (APlayerController* LocalPlayerController = GetGameInstance()->GetFirstLocalPlayerController())
+			{
+				LocalPlayerController->ClientTravel(Address, TRAVEL_Absolute);
+			}
+		}
+	}
+}
+
+void UMultiplayerHandlerMenuWidget::OnDestroySession(bool bWasSuccessful)
+{
+	
+}
+
+void UMultiplayerHandlerMenuWidget::OnStartSession(bool bWasSuccessful)
+{
+	
 }

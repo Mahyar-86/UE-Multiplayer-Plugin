@@ -8,6 +8,13 @@
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "MultiplayerHandlerSubsystem.generated.h"
 
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMultiplayerHandlerOnCreateSessionComplete, bool, bWasSuccessful);
+DECLARE_MULTICAST_DELEGATE_TwoParams(FMultiplayerHandlerOnFindSessionComplete, const TArray<FOnlineSessionSearchResult>& SessionResults, bool bWasSuccessful);
+DECLARE_MULTICAST_DELEGATE_OneParam(FMultiplayerHandlerOnJoinSessionComplete, EOnJoinSessionCompleteResult::Type Result);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMultiplayerHandlerOnDestroySessionComplete, bool, bWasSuccessful);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMultiplayerHandlerOnStartSessionComplete, bool, bWasSuccessful);
+
 /**
  * 
  */
@@ -19,11 +26,17 @@ class MULTIPLAYERHANDLER_API UMultiplayerHandlerSubsystem : public UGameInstance
 public:
 	UMultiplayerHandlerSubsystem();
 
-	void CreateSession(int32 NumPublicConnections, FString MatchType);
+	void CreateSession(int32 NumPublicConnections, const FString& MatchType);
 	void FindSession(int32 MaxSearchResults);
 	void JoinSession(const FOnlineSessionSearchResult& SearchResult);
 	void DestroySession();
 	void StartSession();
+
+	FMultiplayerHandlerOnCreateSessionComplete MultiplayerHandlerOnCreateSessionCompleteDelegate;
+	FMultiplayerHandlerOnFindSessionComplete MultiplayerHandlerOnFindSessionCompleteDelegate;
+	FMultiplayerHandlerOnJoinSessionComplete MultiplayerHandlerOnJoinSessionCompleteDelegate;
+	FMultiplayerHandlerOnDestroySessionComplete MultiplayerHandlerOnDestroySessionCompleteDelegate;
+	FMultiplayerHandlerOnStartSessionComplete MultiplayerHandlerOnStartSessionCompleteDelegate;
 
 protected:
 	void OnCreateSessionComplete(FName SessionName, bool bWasSuccessful);
@@ -35,6 +48,7 @@ protected:
 private:
 	TWeakPtr<IOnlineSession> OnlineSessionInterface;
 	TSharedPtr<FOnlineSessionSettings> LastSessionSettings;
+	TSharedPtr<FOnlineSessionSearch> LastSessionSearch;
 	
 	FOnCreateSessionCompleteDelegate OnCreateSessionCompleteDelegate;
 	FOnFindSessionsCompleteDelegate OnFindSessionsCompleteDelegate;

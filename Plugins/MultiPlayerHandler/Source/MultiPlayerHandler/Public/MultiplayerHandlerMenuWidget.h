@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "Interfaces/OnlineSessionInterface.h"
 #include "MultiplayerHandlerMenuWidget.generated.h"
 
 class UMultiplayerHandlerSubsystem;
@@ -22,7 +23,21 @@ public:
 
 protected:
 	virtual bool Initialize() override;
+	
 	virtual void NativeDestruct() override;
+
+	UFUNCTION()
+	void OnCreateSession(bool bWasSuccessful);
+	
+	void OnFindSession(const TArray<FOnlineSessionSearchResult>& SessionResults, bool bWasSuccessful) const;
+	
+	void OnJoinSession(EOnJoinSessionCompleteResult::Type Result) const;
+
+	UFUNCTION()
+	void OnDestroySession(bool bWasSuccessful);
+
+	UFUNCTION()
+	void OnStartSession(bool bWasSuccessful);
 
 private:
 	UFUNCTION()

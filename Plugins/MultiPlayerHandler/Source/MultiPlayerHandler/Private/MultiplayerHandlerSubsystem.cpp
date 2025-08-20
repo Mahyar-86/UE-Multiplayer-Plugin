@@ -5,6 +5,7 @@
 #include "OnlineSessionSettings.h"
 #include "OnlineSubsystem.h"
 #include "OnlineSubsystemUtils.h"
+#include "Online/OnlineSessionNames.h"
 
 UMultiplayerHandlerSubsystem::UMultiplayerHandlerSubsystem()
 {
@@ -20,7 +21,7 @@ UMultiplayerHandlerSubsystem::UMultiplayerHandlerSubsystem()
 	OnStartSessionCompleteDelegate.BindUObject(this, &UMultiplayerHandlerSubsystem::OnStartSessionComplete);
 }
 
-void UMultiplayerHandlerSubsystem::CreateSession(int32 NumPublicConnections, FString MatchType)
+void UMultiplayerHandlerSubsystem::CreateSession(const int32 NumPublicConnections, const FString& MatchType)
 {
 	if (!OnlineSessionInterface.IsValid())
 	{
@@ -48,6 +49,8 @@ void UMultiplayerHandlerSubsystem::CreateSession(int32 NumPublicConnections, FSt
 	if (!OnlineSessionInterface.Pin()->CreateSession(*GetLocalPlayer()->GetPreferredUniqueNetId(), NAME_GameSession, *LastSessionSettings))
 	{
 		OnlineSessionInterface.Pin()->ClearOnCreateSessionCompleteDelegate_Handle(OnCreateSessionCompleteDelegateHandle);
+
+		MultiplayerHandlerOnCreateSessionCompleteDelegate.Broadcast(false);
 	}
 }
 
@@ -58,14 +61,35 @@ void UMultiplayerHandlerSubsystem::FindSession(int32 MaxSearchResults)
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("OnlineSessionInterface is not valid in FindSession"));
 		return;
 	}
+
+	OnFindSessionsCompleteDelegateHandle = OnlineSessionInterface.Pin()->AddOnFindSessionsCompleteDelegate_Handle(OnFindSessionsCompleteDelegate);
+
+	LastSessionSearch = MakeShareable(new FOnlineSessionSearch());
+	LastSessionSearch->MaxSearchResults = MaxSearchResults;
+	LastSessionSearch->bIsLanQuery = Online::GetSubsystem(GetWorld())->GetSubsystemName() == "NULL";
+	LastSessionSearch->QuerySettings.Set(SEARCH_LOBBIES, true, EOnlineComparisonOp::Equals);
+	if (!OnlineSessionInterface.Pin()->FindSessions(*GetLocalPlayer()->GetPreferredUniqueNetId(), LastSessionSearch.ToSharedRef()))
+	{
+		OnlineSessionInterface.Pin()->ClearOnFindSessionsCompleteDelegate_Handle(OnFindSessionsCompleteDelegateHandle);
+		MultiplayerHandlerOnFindSessionCompleteDelegate.Broadcast(TArray<FOnlineSessionSearchResult>(), false);
+	}
 }
 
 void UMultiplayerHandlerSubsystem::JoinSession(const FOnlineSessionSearchResult& SearchResult)
 {
 	if (!OnlineSessionInterface.IsValid())
 	{
+		MultiplayerHandlerOnJoinSessionCompleteDelegate.Broadcast(EOnJoinSessionCompleteResult::UnknownError);
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("OnlineSessionInterface is not valid in JoinSession"));
 		return;
+	}
+
+	OnJoinSessionCompleteDelegateHandle = OnlineSessionInterface.Pin()->AddOnJoinSessionCompleteDelegate_Handle(OnJoinSessionCompleteDelegate);
+
+	if (!OnlineSessionInterface.Pin()->JoinSession(*GetLocalPlayer()->GetPreferredUniqueNetId(), NAME_GameSession, SearchResult))
+	{
+		OnlineSessionInterface.Pin()->ClearOnJoinSessionCompleteDelegate_Handle(OnJoinSessionCompleteDelegateHandle);
+		MultiplayerHandlerOnJoinSessionCompleteDelegate.Broadcast(EOnJoinSessionCompleteResult::UnknownError);
 	}
 }
 
@@ -87,31 +111,48 @@ void UMultiplayerHandlerSubsystem::StartSession()
 	}
 }
 
-void UMultiplayerHandlerSubsystem::OnCreateSessionComplete(FName SessionName, bool bWasSuccessful)
+void UMultiplayerHandlerSubsystem::OnCreateSessionComplete(FName SessionName, const bool bWasSuccessful)
 {
 	if (!OnlineSessionInterface.IsValid())
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("OnlineSessionInterface is not valid in OnCreateSessionComplete"));
 		return;
 	}
+	
+	OnlineSessionInterface.Pin()->ClearOnCreateSessionCompleteDelegate_Handle(OnCreateSessionCompleteDelegateHandle);
+	MultiplayerHandlerOnCreateSessionCompleteDelegate.Broadcast(bWasSuccessful);
 }
 
-void UMultiplayerHandlerSubsystem::OnFindSessionComplete(bool bWasSuccessful)
+void UMultiplayerHandlerSubsystem::OnFindSessionComplete(const bool bWasSuccessful)
 {
 	if (!OnlineSessionInterface.IsValid())
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("OnlineSessionInterface is not valid in OnFindSessionComplete"));
 		return;
 	}
+
+	OnlineSessionInterface.Pin()->ClearOnFindSessionsCompleteDelegate_Handle(OnFindSessionsCompleteDelegateHandle);
+
+	if (LastSessionSearch->SearchResults.IsEmpty())
+	{
+		MultiplayerHandlerOnFindSessionCompleteDelegate.Broadcast(TArray<FOnlineSessionSearchResult>(), false);
+		return;
+	}
+	
+	MultiplayerHandlerOnFindSessionCompleteDelegate.Broadcast(LastSessionSearch->SearchResults, bWasSuccessful);
 }
 
-void UMultiplayerHandlerSubsystem::OnJoinSessionComplete(FName SessionName, EOnJoinSessionCompleteResult::Type Result)
+void UMultiplayerHandlerSubsystem::OnJoinSessionComplete(FName SessionName, const EOnJoinSessionCompleteResult::Type Result)
 {
 	if (!OnlineSessionInterface.IsValid())
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("OnlineSessionInterface is not valid in OnJoinSessionComplete"));
 		return;
 	}
+
+	OnlineSessionInterface.Pin()->ClearOnJoinSessionCompleteDelegate_Handle(OnJoinSessionCompleteDelegateHandle);
+
+	MultiplayerHandlerOnJoinSessionCompleteDelegate.Broadcast(Result);
 }
 
 void UMultiplayerHandlerSubsystem::OnDestroySessionComplete(FName SessionName, bool bWasSuccessful)
