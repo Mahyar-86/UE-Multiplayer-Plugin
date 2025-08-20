@@ -19,7 +19,7 @@ class MULTIPLAYERHANDLER_API UMultiplayerHandlerMenuWidget : public UUserWidget
 
 public:
 	UFUNCTION(BlueprintCallable)
-	void SetupMenu(int32 NumberOfPublicConnections = 4, FString TypeOfMatch = "FreeForAll");
+	void SetupMenu(int32 NumberOfPublicConnections = 4, FString TypeOfMatch = "FreeForAll", FString LobbyPath = "/Game/ThirdPerson/Maps/Lobby");
 
 protected:
 	virtual bool Initialize() override;
@@ -59,5 +59,8 @@ private:
 	UMultiplayerHandlerSubsystem* MultiplayerHandlerSubsystem;
 
 	int32 NumPublicConnections;
+
 	FString MatchType;
+
+	FString PathToLobby;
 };

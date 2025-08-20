@@ -7,8 +7,9 @@
 #include "Components/Button.h"
 #include "OnlineSubsystemUtils.h"
 
-void UMultiplayerHandlerMenuWidget::SetupMenu(const int32 NumberOfPublicConnections, FString TypeOfMatch)
+void UMultiplayerHandlerMenuWidget::SetupMenu(const int32 NumberOfPublicConnections, FString TypeOfMatch, FString LobbyPath)
 {
+	PathToLobby = LobbyPath + "?listen";
 	NumPublicConnections = NumberOfPublicConnections;
 	MatchType = TypeOfMatch;
 	
@@ -104,7 +105,7 @@ void UMultiplayerHandlerMenuWidget::OnCreateSession(const bool bWasSuccessful)
 	if (bWasSuccessful)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Black, TEXT("Session Created Successfully!"));
-		GetWorld()->ServerTravel("/Game/ThirdPerson/Maps/Lobby?listen");
+		GetWorld()->ServerTravel(PathToLobby);
 	}
 	else
 	{
