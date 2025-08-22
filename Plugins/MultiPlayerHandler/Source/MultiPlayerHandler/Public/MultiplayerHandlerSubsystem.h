@@ -63,4 +63,8 @@ private:
 	FDelegateHandle OnStartSessionCompleteDelegateHandle;
 
 	ULocalPlayer* GetLocalPlayer() const { return GetWorld() ? GetWorld()->GetFirstLocalPlayerFromController() : nullptr; }
+
+	bool bCreateSessionOnDestroy { false };
+	int32 LastNumPublicConnections;
+	FString LastMatchType;
 };

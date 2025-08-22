@@ -86,6 +86,8 @@ void UMultiplayerHandlerMenuWidget::HostButtonClicked()
 		return;
 	}
 
+	Button_Host->SetIsEnabled(false);
+
 	MultiplayerHandlerSubsystem->CreateSession(NumPublicConnections, MatchType);
 }
 
@@ -95,6 +97,8 @@ void UMultiplayerHandlerMenuWidget::JoinButtonClicked()
 	{
 		return;
 	}
+
+	Button_Join->SetIsEnabled(false);
 
 	MultiplayerHandlerSubsystem->FindSession(10000); // Cause many players using 480 dev steam id
 }
@@ -110,6 +114,8 @@ void UMultiplayerHandlerMenuWidget::OnCreateSession(const bool bWasSuccessful)
 	else
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Black, TEXT("Failed to Create the Session!"));
+
+		Button_Host->SetIsEnabled(true);
 	}
 }
 
@@ -131,6 +137,11 @@ void UMultiplayerHandlerMenuWidget::OnFindSession(const TArray<FOnlineSessionSea
 			return;
 		}
 	}
+
+	if (!bWasSuccessful || SessionResults.IsEmpty())
+	{
+		Button_Join->SetIsEnabled(true);
+	}
 }
 
 void UMultiplayerHandlerMenuWidget::OnJoinSession(EOnJoinSessionCompleteResult::Type Result) const
@@ -147,6 +158,11 @@ void UMultiplayerHandlerMenuWidget::OnJoinSession(EOnJoinSessionCompleteResult::
 				LocalPlayerController->ClientTravel(Address, TRAVEL_Absolute);
 			}
 		}
+	}
+
+	if (Result != EOnJoinSessionCompleteResult::Success)
+	{
+		Button_Join->SetIsEnabled(true);
 	}
 }
 

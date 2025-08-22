@@ -31,7 +31,11 @@ void UMultiplayerHandlerSubsystem::CreateSession(const int32 NumPublicConnection
 
 	if (OnlineSessionInterface.Pin()->GetNamedSession(NAME_GameSession))
 	{
-		OnlineSessionInterface.Pin()->DestroySession(NAME_GameSession);
+		bCreateSessionOnDestroy = true;
+		LastNumPublicConnections = NumPublicConnections;
+		LastMatchType = MatchType;
+		
+		DestroySession();
 	}
 
 	OnCreateSessionCompleteDelegateHandle = OnlineSessionInterface.Pin()->AddOnCreateSessionCompleteDelegate_Handle(OnCreateSessionCompleteDelegate);
@@ -98,8 +102,17 @@ void UMultiplayerHandlerSubsystem::DestroySession()
 {
 	if (!OnlineSessionInterface.IsValid())
 	{
+		MultiplayerHandlerOnDestroySessionCompleteDelegate.Broadcast(false);
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("OnlineSessionInterface is not valid in DestroySession"));
 		return;
+	}
+
+	OnDestroySessionCompleteDelegateHandle = OnlineSessionInterface.Pin()->AddOnDestroySessionCompleteDelegate_Handle(OnDestroySessionCompleteDelegate);
+
+	if (!OnlineSessionInterface.Pin()->DestroySession(NAME_GameSession))
+	{
+		OnlineSessionInterface.Pin()->ClearOnDestroySessionCompleteDelegate_Handle(OnDestroySessionCompleteDelegateHandle);
+		MultiplayerHandlerOnDestroySessionCompleteDelegate.Broadcast(false);
 	}
 }
 
@@ -163,6 +176,17 @@ void UMultiplayerHandlerSubsystem::OnDestroySessionComplete(FName SessionName, b
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("OnlineSessionInterface is not valid in OnDestroySessionComplete"));
 		return;
 	}
+
+	OnlineSessionInterface.Pin()->ClearOnDestroySessionCompleteDelegate_Handle(OnDestroySessionCompleteDelegateHandle);
+
+	if (bWasSuccessful && bCreateSessionOnDestroy)
+	{
+		bCreateSessionOnDestroy = false;
+		
+		CreateSession(LastNumPublicConnections, LastMatchType);
+	}
+	
+	MultiplayerHandlerOnDestroySessionCompleteDelegate.Broadcast(bWasSuccessful);
 }
 
 void UMultiplayerHandlerSubsystem::OnStartSessionComplete(FName SessionName, bool bWasSuccessful)
