@@ -7,9 +7,9 @@
 #include "Components/Button.h"
 #include "OnlineSubsystemUtils.h"
 
-void UMultiplayerHandlerMenuWidget::SetupMenu(const int32 NumberOfPublicConnections, FString TypeOfMatch, FString LobbyPath)
+void UMultiplayerHandlerMenuWidget::SetupMenu(const int32 NumberOfPublicConnections, FString TypeOfMatch, const FString LobbyPath)
 {
-	PathToLobby = LobbyPath + "?listen";
+	PathToLobby = LobbyPath + TEXT("?listen");
 	NumPublicConnections = NumberOfPublicConnections;
 	MatchType = TypeOfMatch;
 	
@@ -119,7 +119,7 @@ void UMultiplayerHandlerMenuWidget::OnCreateSession(const bool bWasSuccessful)
 	}
 }
 
-void UMultiplayerHandlerMenuWidget::OnFindSession(const TArray<FOnlineSessionSearchResult>& SessionResults, bool bWasSuccessful) const
+void UMultiplayerHandlerMenuWidget::OnFindSession(const TArray<FOnlineSessionSearchResult>& SessionResults, const bool bWasSuccessful) const
 {
 	if (!MultiplayerHandlerSubsystem)
 	{
@@ -144,7 +144,7 @@ void UMultiplayerHandlerMenuWidget::OnFindSession(const TArray<FOnlineSessionSea
 	}
 }
 
-void UMultiplayerHandlerMenuWidget::OnJoinSession(EOnJoinSessionCompleteResult::Type Result) const
+void UMultiplayerHandlerMenuWidget::OnJoinSession(const EOnJoinSessionCompleteResult::Type Result) const
 {
 	if (const IOnlineSubsystem* OnlineSubsystem = Online::GetSubsystem(UObject::GetWorld()))
 	{

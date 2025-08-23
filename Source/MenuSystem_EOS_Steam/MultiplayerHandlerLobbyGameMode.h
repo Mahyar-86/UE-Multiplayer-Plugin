@@ -10,7 +10,7 @@
  * 
  */
 UCLASS()
-class MULTIPLAYERHANDLER_API AMultiplayerHandlerLobbyGameMode : public AGameModeBase
+class AMultiplayerHandlerLobbyGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
 

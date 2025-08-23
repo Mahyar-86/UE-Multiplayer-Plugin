@@ -40,7 +40,7 @@ void UMultiplayerHandlerSubsystem::CreateSession(const int32 NumPublicConnection
 
 	OnCreateSessionCompleteDelegateHandle = OnlineSessionInterface.Pin()->AddOnCreateSessionCompleteDelegate_Handle(OnCreateSessionCompleteDelegate);
 
-	LastSessionSettings = MakeShareable(new FOnlineSessionSettings);
+	LastSessionSettings = MakeShareable(new FOnlineSessionSettings());
 	LastSessionSettings->bIsLANMatch = Online::GetSubsystem(GetWorld())->GetSubsystemName() == "NULL";
 	LastSessionSettings->NumPublicConnections = NumPublicConnections;
 	LastSessionSettings->bAllowJoinInProgress = true;
@@ -48,18 +48,23 @@ void UMultiplayerHandlerSubsystem::CreateSession(const int32 NumPublicConnection
 	LastSessionSettings->bShouldAdvertise = true;
 	LastSessionSettings->bUsesPresence = true;
 	LastSessionSettings->bUseLobbiesIfAvailable = true;
-	LastSessionSettings->Set(FName("MatchType"), MatchType, EOnlineDataAdvertisementType::ViaOnlineServiceAndPing);
-	LastSessionSettings->BuildUniqueId = 1;
+	LastSessionSettings->BuildUniqueId = GetBuildUniqueId();
+	
+	// Add more Steam-specific settings
+	LastSessionSettings->Set(SETTING_MAPNAME, FString("MainMap"), EOnlineDataAdvertisementType::ViaOnlineService);
+	LastSessionSettings->Set(SETTING_GAMEMODE, FString("MainGameMode"), EOnlineDataAdvertisementType::ViaOnlineService);
+	LastSessionSettings->Set(SETTING_MATCHING_HOPPER, FString("GameHopper"), EOnlineDataAdvertisementType::ViaOnlineService);
+	LastSessionSettings->Set(FName("MatchType"), MatchType, EOnlineDataAdvertisementType::ViaOnlineService);
 
-	if (!OnlineSessionInterface.Pin()->CreateSession(*GetLocalPlayer()->GetPreferredUniqueNetId(), NAME_GameSession, *LastSessionSettings))
+	const ULocalPlayer* LocalPlayer = GetWorld()->GetFirstLocalPlayerFromController();
+	if (!OnlineSessionInterface.Pin()->CreateSession(*LocalPlayer->GetPreferredUniqueNetId(), NAME_GameSession, *LastSessionSettings))
 	{
 		OnlineSessionInterface.Pin()->ClearOnCreateSessionCompleteDelegate_Handle(OnCreateSessionCompleteDelegateHandle);
-
 		MultiplayerHandlerOnCreateSessionCompleteDelegate.Broadcast(false);
 	}
 }
 
-void UMultiplayerHandlerSubsystem::FindSession(int32 MaxSearchResults)
+void UMultiplayerHandlerSubsystem::FindSession(const int32 MaxSearchResults)
 {
 	if (!OnlineSessionInterface.IsValid())
 	{
@@ -73,7 +78,14 @@ void UMultiplayerHandlerSubsystem::FindSession(int32 MaxSearchResults)
 	LastSessionSearch->MaxSearchResults = MaxSearchResults;
 	LastSessionSearch->bIsLanQuery = Online::GetSubsystem(GetWorld())->GetSubsystemName() == "NULL";
 	LastSessionSearch->QuerySettings.Set(SEARCH_LOBBIES, true, EOnlineComparisonOp::Equals);
-	if (!OnlineSessionInterface.Pin()->FindSessions(*GetLocalPlayer()->GetPreferredUniqueNetId(), LastSessionSearch.ToSharedRef()))
+	
+	// Add more search parameters
+	LastSessionSearch->QuerySettings.Set(SEARCH_PRESENCE, true, EOnlineComparisonOp::Equals);
+	LastSessionSearch->QuerySettings.Set(SEARCH_EMPTY_SERVERS_ONLY, false, EOnlineComparisonOp::Equals);
+	LastSessionSearch->QuerySettings.Set(SEARCH_MINSLOTSAVAILABLE, 1, EOnlineComparisonOp::GreaterThanEquals);
+
+	const ULocalPlayer* LocalPlayer = GetWorld()->GetFirstLocalPlayerFromController();
+	if (!OnlineSessionInterface.Pin()->FindSessions(*LocalPlayer->GetPreferredUniqueNetId(), LastSessionSearch.ToSharedRef()))
 	{
 		OnlineSessionInterface.Pin()->ClearOnFindSessionsCompleteDelegate_Handle(OnFindSessionsCompleteDelegateHandle);
 		MultiplayerHandlerOnFindSessionCompleteDelegate.Broadcast(TArray<FOnlineSessionSearchResult>(), false);
@@ -169,7 +181,7 @@ void UMultiplayerHandlerSubsystem::OnJoinSessionComplete(FName SessionName, cons
 	MultiplayerHandlerOnJoinSessionCompleteDelegate.Broadcast(Result);
 }
 
-void UMultiplayerHandlerSubsystem::OnDestroySessionComplete(FName SessionName, bool bWasSuccessful)
+void UMultiplayerHandlerSubsystem::OnDestroySessionComplete(FName SessionName, const bool bWasSuccessful)
 {
 	if (!OnlineSessionInterface.IsValid())
 	{

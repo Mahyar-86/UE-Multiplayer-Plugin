@@ -6,16 +6,16 @@
 		},
 		{
 			"name": "UE5",
-			"path": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4"
+			"path": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1"
 		}
 	],
 	"settings": {
 		"typescript.tsc.autoDetect": "off",
 		"npm.autoDetect": "off",
 		"terminal.integrated.env.linux": {
-			"PATH": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4/Engine/Binaries/ThirdParty/DotNet/8.0.300/linux-x64:${env:PATH}",
-			"DOTNET_ROOT": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4/Engine/Binaries/ThirdParty/DotNet/8.0.300/linux-x64",
-			"DOTNET_HOST_PATH": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4/Engine/Binaries/ThirdParty/DotNet/8.0.300/linux-x64/dotnet",
+			"PATH": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1/Engine/Binaries/ThirdParty/DotNet/8.0.300/linux-x64:${env:PATH}",
+			"DOTNET_ROOT": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1/Engine/Binaries/ThirdParty/DotNet/8.0.300/linux-x64",
+			"DOTNET_HOST_PATH": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1/Engine/Binaries/ThirdParty/DotNet/8.0.300/linux-x64/dotnet",
 			"DOTNET_MULTILEVEL_LOOKUP": "0",
 			"DOTNET_ROLL_FORWARD": "LatestMajor"
 		}
@@ -43,7 +43,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4"
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1"
 				}
 			},
 			{
@@ -63,7 +63,7 @@
 				],
 				"type": "shell",
 				"options": {
-					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4"
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1"
 				}
 			},
 			{
@@ -81,7 +81,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4"
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1"
 				}
 			},
 			{
@@ -98,7 +98,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4"
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1"
 				}
 			},
 			{
@@ -118,7 +118,7 @@
 				],
 				"type": "shell",
 				"options": {
-					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4"
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1"
 				}
 			},
 			{
@@ -136,7 +136,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4"
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1"
 				}
 			},
 			{
@@ -153,7 +153,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4"
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1"
 				}
 			},
 			{
@@ -173,7 +173,7 @@
 				],
 				"type": "shell",
 				"options": {
-					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4"
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1"
 				}
 			},
 			{
@@ -191,7 +191,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4"
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1"
 				}
 			},
 			{
@@ -208,7 +208,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4"
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1"
 				}
 			},
 			{
@@ -228,7 +228,7 @@
 				],
 				"type": "shell",
 				"options": {
-					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4"
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1"
 				}
 			},
 			{
@@ -246,7 +246,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4"
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1"
 				}
 			},
 			{
@@ -263,7 +263,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4"
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1"
 				}
 			},
 			{
@@ -283,7 +283,7 @@
 				],
 				"type": "shell",
 				"options": {
-					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4"
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1"
 				}
 			},
 			{
@@ -301,7 +301,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4"
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1"
 				}
 			},
 			{
@@ -318,7 +318,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4"
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1"
 				}
 			},
 			{
@@ -338,7 +338,7 @@
 				],
 				"type": "shell",
 				"options": {
-					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4"
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1"
 				}
 			},
 			{
@@ -356,7 +356,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4"
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1"
 				}
 			},
 			{
@@ -373,7 +373,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4"
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1"
 				}
 			},
 			{
@@ -393,7 +393,7 @@
 				],
 				"type": "shell",
 				"options": {
-					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4"
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1"
 				}
 			},
 			{
@@ -411,7 +411,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4"
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1"
 				}
 			},
 			{
@@ -428,7 +428,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4"
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1"
 				}
 			},
 			{
@@ -448,7 +448,7 @@
 				],
 				"type": "shell",
 				"options": {
-					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4"
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1"
 				}
 			},
 			{
@@ -466,7 +466,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4"
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1"
 				}
 			},
 			{
@@ -483,7 +483,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4"
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1"
 				}
 			},
 			{
@@ -503,7 +503,7 @@
 				],
 				"type": "shell",
 				"options": {
-					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4"
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1"
 				}
 			},
 			{
@@ -521,7 +521,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4"
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1"
 				}
 			},
 			{
@@ -538,7 +538,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4"
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1"
 				}
 			},
 			{
@@ -558,7 +558,7 @@
 				],
 				"type": "shell",
 				"options": {
-					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4"
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1"
 				}
 			},
 			{
@@ -576,7 +576,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4"
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1"
 				}
 			},
 			{
@@ -593,7 +593,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4"
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1"
 				}
 			},
 			{
@@ -613,7 +613,7 @@
 				],
 				"type": "shell",
 				"options": {
-					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4"
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1"
 				}
 			},
 			{
@@ -631,7 +631,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4"
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1"
 				}
 			},
 			{
@@ -648,7 +648,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4"
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1"
 				}
 			},
 			{
@@ -668,7 +668,7 @@
 				],
 				"type": "shell",
 				"options": {
-					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4"
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1"
 				}
 			},
 			{
@@ -686,7 +686,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4"
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1"
 				}
 			},
 			{
@@ -703,7 +703,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4"
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1"
 				}
 			},
 			{
@@ -723,7 +723,7 @@
 				],
 				"type": "shell",
 				"options": {
-					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4"
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1"
 				}
 			},
 			{
@@ -741,7 +741,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4"
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1"
 				}
 			}
 		]
@@ -756,10 +756,14 @@
 				"preLaunchTask": "MenuSystem_EOS_Steam Linux Debug Build",
 				"args": [
 				],
-				"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4",
+				"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1",
 				"type": "cppdbg",
-				"visualizerFile": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
-				"showDisplayString": true
+				"visualizerFile": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
+				"showDisplayString": true,
+				"sourceFileMap": {
+					"/UEVFS/MenuSystem_EOS_Steam": "/home/mahyar-86/UnrealEngine/UnrealProjects/MenuSystem_EOS_Steam",
+					"/UEVFS/Root": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1"
+				}
 			},
 			{
 				"name": "Launch MenuSystem_EOS_Steam (DebugGame)",
@@ -768,10 +772,14 @@
 				"preLaunchTask": "MenuSystem_EOS_Steam Linux DebugGame Build",
 				"args": [
 				],
-				"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4",
+				"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1",
 				"type": "cppdbg",
-				"visualizerFile": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
-				"showDisplayString": true
+				"visualizerFile": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
+				"showDisplayString": true,
+				"sourceFileMap": {
+					"/UEVFS/MenuSystem_EOS_Steam": "/home/mahyar-86/UnrealEngine/UnrealProjects/MenuSystem_EOS_Steam",
+					"/UEVFS/Root": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1"
+				}
 			},
 			{
 				"name": "Launch MenuSystem_EOS_Steam (Development)",
@@ -780,10 +788,14 @@
 				"preLaunchTask": "MenuSystem_EOS_Steam Linux Development Build",
 				"args": [
 				],
-				"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4",
+				"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1",
 				"type": "cppdbg",
-				"visualizerFile": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
-				"showDisplayString": true
+				"visualizerFile": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
+				"showDisplayString": true,
+				"sourceFileMap": {
+					"/UEVFS/MenuSystem_EOS_Steam": "/home/mahyar-86/UnrealEngine/UnrealProjects/MenuSystem_EOS_Steam",
+					"/UEVFS/Root": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1"
+				}
 			},
 			{
 				"name": "Launch MenuSystem_EOS_Steam (Test)",
@@ -792,10 +804,14 @@
 				"preLaunchTask": "MenuSystem_EOS_Steam Linux Test Build",
 				"args": [
 				],
-				"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4",
+				"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1",
 				"type": "cppdbg",
-				"visualizerFile": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
-				"showDisplayString": true
+				"visualizerFile": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
+				"showDisplayString": true,
+				"sourceFileMap": {
+					"/UEVFS/MenuSystem_EOS_Steam": "/home/mahyar-86/UnrealEngine/UnrealProjects/MenuSystem_EOS_Steam",
+					"/UEVFS/Root": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1"
+				}
 			},
 			{
 				"name": "Launch MenuSystem_EOS_Steam (Shipping)",
@@ -804,56 +820,72 @@
 				"preLaunchTask": "MenuSystem_EOS_Steam Linux Shipping Build",
 				"args": [
 				],
-				"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4",
+				"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1",
 				"type": "cppdbg",
-				"visualizerFile": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
-				"showDisplayString": true
+				"visualizerFile": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
+				"showDisplayString": true,
+				"sourceFileMap": {
+					"/UEVFS/MenuSystem_EOS_Steam": "/home/mahyar-86/UnrealEngine/UnrealProjects/MenuSystem_EOS_Steam",
+					"/UEVFS/Root": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1"
+				}
 			},
 			{
 				"name": "Launch MenuSystem_EOS_SteamEditor (Debug)",
 				"request": "launch",
-				"program": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4/Engine/Binaries/Linux/UnrealEditor-Linux-Debug",
+				"program": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1/Engine/Binaries/Linux/UnrealEditor-Linux-Debug",
 				"preLaunchTask": "MenuSystem_EOS_SteamEditor Linux Debug Build",
 				"args": [
 					"/home/mahyar-86/UnrealEngine/UnrealProjects/MenuSystem_EOS_Steam/MenuSystem_EOS_Steam.uproject"
 				],
-				"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4",
+				"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1",
 				"type": "cppdbg",
-				"visualizerFile": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
-				"showDisplayString": true
+				"visualizerFile": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
+				"showDisplayString": true,
+				"sourceFileMap": {
+					"/UEVFS/MenuSystem_EOS_Steam": "/home/mahyar-86/UnrealEngine/UnrealProjects/MenuSystem_EOS_Steam",
+					"/UEVFS/Root": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1"
+				}
 			},
 			{
 				"name": "Launch MenuSystem_EOS_SteamEditor (DebugGame)",
 				"request": "launch",
-				"program": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4/Engine/Binaries/Linux/UnrealEditor-Linux-DebugGame",
+				"program": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1/Engine/Binaries/Linux/UnrealEditor-Linux-DebugGame",
 				"preLaunchTask": "MenuSystem_EOS_SteamEditor Linux DebugGame Build",
 				"args": [
 					"/home/mahyar-86/UnrealEngine/UnrealProjects/MenuSystem_EOS_Steam/MenuSystem_EOS_Steam.uproject"
 				],
-				"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4",
+				"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1",
 				"type": "cppdbg",
-				"visualizerFile": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
-				"showDisplayString": true
+				"visualizerFile": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
+				"showDisplayString": true,
+				"sourceFileMap": {
+					"/UEVFS/MenuSystem_EOS_Steam": "/home/mahyar-86/UnrealEngine/UnrealProjects/MenuSystem_EOS_Steam",
+					"/UEVFS/Root": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1"
+				}
 			},
 			{
 				"name": "Launch MenuSystem_EOS_SteamEditor (Development)",
 				"request": "launch",
-				"program": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4/Engine/Binaries/Linux/UnrealEditor",
+				"program": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1/Engine/Binaries/Linux/UnrealEditor",
 				"preLaunchTask": "MenuSystem_EOS_SteamEditor Linux Development Build",
 				"args": [
 					"/home/mahyar-86/UnrealEngine/UnrealProjects/MenuSystem_EOS_Steam/MenuSystem_EOS_Steam.uproject"
 				],
-				"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4",
+				"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1",
 				"type": "cppdbg",
-				"visualizerFile": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
-				"showDisplayString": true
+				"visualizerFile": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
+				"showDisplayString": true,
+				"sourceFileMap": {
+					"/UEVFS/MenuSystem_EOS_Steam": "/home/mahyar-86/UnrealEngine/UnrealProjects/MenuSystem_EOS_Steam",
+					"/UEVFS/Root": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1"
+				}
 			},
 			{
 				"name": "Generate Project Files",
 				"type": "coreclr",
 				"request": "launch",
 				"preLaunchTask": "UnrealBuildTool Linux Development Build",
-				"program": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4/Engine/Build/BatchFiles/RunUBT.bat",
+				"program": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1/Engine/Build/BatchFiles/RunUBT.bat",
 				"args": [
 					"-projectfiles",
 					"-vscode",
@@ -863,16 +895,16 @@
 					"-dotnet"
 				],
 				"env": {
-					"PATH": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4/Engine/Binaries/ThirdParty/DotNet/8.0.300/linux-x64:${env:PATH}",
-					"DOTNET_ROOT": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4/Engine/Binaries/ThirdParty/DotNet/8.0.300/linux-x64",
-					"DOTNET_HOST_PATH": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4/Engine/Binaries/ThirdParty/DotNet/8.0.300/linux-x64/dotnet",
+					"PATH": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1/Engine/Binaries/ThirdParty/DotNet/8.0.300/linux-x64:${env:PATH}",
+					"DOTNET_ROOT": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1/Engine/Binaries/ThirdParty/DotNet/8.0.300/linux-x64",
+					"DOTNET_HOST_PATH": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1/Engine/Binaries/ThirdParty/DotNet/8.0.300/linux-x64/dotnet",
 					"DOTNET_MULTILEVEL_LOOKUP": "0",
 					"DOTNET_ROLL_FORWARD": "LatestMajor"
 				},
 				"console": "internalConsole",
 				"internalConsoleOptions": "openOnSessionStart",
 				"stopAtEntry": false,
-				"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.5.4"
+				"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.6.1"
 			}
 		]
 	}

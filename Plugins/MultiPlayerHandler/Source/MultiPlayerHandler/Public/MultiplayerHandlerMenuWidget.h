@@ -58,9 +58,9 @@ private:
 	UPROPERTY()
 	UMultiplayerHandlerSubsystem* MultiplayerHandlerSubsystem;
 
-	int32 NumPublicConnections;
+	int32 NumPublicConnections {4};
 
-	FString MatchType;
+	FString MatchType {TEXT("FreeForAll")};
 
-	FString PathToLobby;
+	FString PathToLobby {TEXT("")};
 };
